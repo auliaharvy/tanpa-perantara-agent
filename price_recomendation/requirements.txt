@@ -1,0 +1,5 @@
+google-adk
+toolbox-core
+fastapi
+pydantic
+uvicorn[standard]
