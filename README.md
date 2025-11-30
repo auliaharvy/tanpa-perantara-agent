@@ -1,32 +1,51 @@
-# Valuation Expert AI
+# Tanpa Perantara AI Agents
 
 ## Overview
-The **Valuation Expert AI** is an intelligent agent system designed to provide accurate and comprehensive property price recommendations. It leverages a multi-agent architecture to combine internal database records with external market sentiment analysis.
+This repository houses the AI agents for the **Tanpa Perantara** platform. The system utilizes a multi-agent architecture to provide specialized assistance for different user needs, featuring two primary agents:
 
-## Architecture
-The system is orchestrated by a **Root Agent** which coordinates two specialized sub-agents:
+1.  **Price Recommendation Agent** (Buyer Support)
+2.  **Tata - Tanpa Perantara Assistant** (Seller/Sales Support)
 
-1.  **Database Retrieval Agent**:
-    *   **Role**: SQL Specialist.
-    *   **Function**: Queries the internal PostgreSQL database (`tpg_dev`) to find comparable properties based on location, specs, and price.
-    *   **Data Sources**: `public.propertys` and `public.property_details`.
+---
 
-2.  **Web Search Agent**:
-    *   **Role**: Market Sentiment Analyst.
-    *   **Function**: Performs web searches to gather external factors influencing property value.
-    *   **Key Insights**: Market trends, infrastructure developments, environmental risks, and nearby facilities.
+## 1. Price Recommendation Agent
+**Goal:** Assist buyers in determining the fair market value of a property.
 
-## Workflow
-1.  **Input**: User provides property details (Location, Land Area, etc.).
-2.  **Internal Search**: Database Agent finds similar properties and calculates average prices.
-3.  **External Analysis**: Web Search Agent gathers news and sentiment about the location.
-4.  **Synthesis**: Root Agent combines internal data and external sentiment.
-5.  **Output**: A JSON response containing the recommended price, listing details, and a comprehensive analysis.
+This agent acts as a **Valuation Expert**. It combines internal property data with external market sentiment to provide a comprehensive price analysis.
 
-## Tools & Configuration
-The system uses `tools.yaml` to define:
-*   **Database Connection**: Connection details for the PostgreSQL database.
-*   **SQL Tools**: Pre-defined SQL queries for property retrieval (`get-property-by-id`, `search-properties-by-coordinates`, etc.).
+### Architecture
+*   **Root Agent**: Coordinates the analysis.
+*   **Database Retrieval Agent**: Queries the internal PostgreSQL database (`tpg_dev`) for comparable properties.
+*   **Web Search Agent**: Analyzes external market trends, infrastructure news, and environmental factors.
 
-## Usage
-The agent is designed to be interacted with via a chat interface or API that supports the defined toolset.
+### Workflow
+1.  **Input**: User provides property specs (Location, Area, etc.).
+2.  **Analysis**: The agent retrieves similar properties and scans the web for factors affecting value (e.g., new toll roads, flood risks).
+3.  **Output**: A recommended price range with a detailed justification and confidence score.
+
+---
+
+## 2. Tata - Tanpa Perantara Assistant
+**Goal:** Act as a Property Sales Agent to assist sellers and guide potential buyers.
+
+**Tata** is a friendly and professional AI Sales Agent designed to build rapport with users and guide them towards a purchase. While it interacts with buyers, it serves the seller's interest by effectively marketing properties.
+
+### Architecture
+*   **Persona**: Friendly, professional, and persuasive.
+*   **Database Retrieval Agent**: Finds properties matching user criteria.
+*   **Web Search Agent**: Provides "point of view" and investment advice based on real-time market data.
+
+### Workflow
+1.  **Contextualize**: Tata researches the area's investment potential using the Web Search Agent.
+2.  **Retrieve**: Finds properties in the database that match the user's needs.
+3.  **Recommend & Persuade**: Presents the best options and explains *why* they are good investments, citing external sources (news, trends) to build trust.
+
+---
+
+## Technical Configuration
+The agents share a common toolset defined in `tools.yaml`:
+*   **Database**: PostgreSQL connection to `tpg_dev`.
+*   **Tools**:
+    *   `get-property-by-id`
+    *   `search-properties-by-coordinates`
+    *   `search-properties-by-coordinates-and-price`
