@@ -1,5 +1,5 @@
 from google.adk.agents import LlmAgent
-from google.adk.tools import    
+from google.adk.tools import google_search
 from .. import prompts
 
 web_search_agent = LlmAgent(
